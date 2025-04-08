@@ -36,12 +36,8 @@ function useIsWalletReady(): {
 
   const [isReady, setIsReady] = useState(false)
   const [statusMessage, setStatusMessage] = useState('Wallet not connected')
-  const [isSwitching, setIsSwitching] = useState(false)
 
   const switchNetwork = useCallback(async () => {
-    if (isSwitching) return
-
-    setIsSwitching(true)
     console.debug('useIsWalletReady:EVM:Attempting to switch network...', {
       hasProvider: !!appkitProvider,
       sourceChain,
@@ -51,19 +47,16 @@ function useIsWalletReady(): {
     if (sourceChain && appKitModel !== null) {
       console.log('useIsWalletReady:EVM:switching network...')
       try {
-        await new Promise(resolve => setTimeout(resolve, 500))
         await appKitModel.switchNetwork(sourceChain)
         console.debug(
           'useIsWalletReady:EVM:Network switch successful to:',
           sourceChain.name
         )
       } catch (e) {
-        console.error('useIsWalletReady:EVM:Network switch failed:', e)
-      } finally {
-        setIsSwitching(false)
+        console.log('useIsWalletReady:EVM:Network switch failed:', e)
       }
     }
-  }, [appkitProvider, sourceChain, isSwitching])
+  }, [appkitProvider, sourceChain])
 
   useEffect(() => {
     async function checkChainId() {
