@@ -167,7 +167,7 @@ export const TransferWidget = ({
   })
 
   const { submitTransaction, isSubmitting } = useSubmitTransaction({
-    amount: BigInt(Number(submitAmount ?? '0').toLocaleString('fullwide', { useGrouping: false }) ?? '0'),
+    amount: BigInt(submitAmount ?? '0'),
     totalFee: BigInt(totalFee ?? '0'),
     originAddress: sourceAddress,
     targetAddress,

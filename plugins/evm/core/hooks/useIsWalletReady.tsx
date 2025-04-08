@@ -47,12 +47,13 @@ function useIsWalletReady(): {
     if (sourceChain && appKitModel !== null) {
       console.log('useIsWalletReady:EVM:switching network...')
       try {
-        await appKitModel.switchNetwork(sourceChain)
+        appKitModel.switchNetwork(sourceChain)
         console.debug(
           'useIsWalletReady:EVM:Network switch successful to:',
           sourceChain.name
         )
       } catch (e) {
+        console.log('useIsWalletReady:EVM:Network switch failed:', e)
       }
     }
   }, [appkitProvider, sourceChain])
@@ -131,7 +132,7 @@ function useIsWalletReady(): {
           )
           setIsReady(false)
           setStatusMessage('Switching to correct network...')
-          await switchNetwork()
+          switchNetwork()
         }
       }
     }

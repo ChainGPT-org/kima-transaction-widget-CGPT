@@ -1879,7 +1879,7 @@ function get(url) {
 function post(url, body, token) {
   const requestOptions = {
     method: "POST",
-    // credentials: 'include',
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`
@@ -2473,12 +2473,13 @@ function useIsWalletReady() {
     if (sourceChain && appKitModel !== null) {
       console.log("useIsWalletReady:EVM:switching network...");
       try {
-        await appKitModel.switchNetwork(sourceChain);
+        appKitModel.switchNetwork(sourceChain);
         console.debug(
           "useIsWalletReady:EVM:Network switch successful to:",
           sourceChain.name
         );
       } catch (e) {
+        console.log("useIsWalletReady:EVM:Network switch failed:", e);
       }
     }
   }, [appkitProvider, sourceChain]);
@@ -2542,7 +2543,7 @@ function useIsWalletReady() {
           );
           setIsReady(false);
           setStatusMessage("Switching to correct network...");
-          await switchNetwork();
+          switchNetwork();
         }
       }
     }
@@ -6273,7 +6274,7 @@ var TransferWidget = ({
     isWalletReady: isReady
   });
   const { submitTransaction, isSubmitting } = useSubmitTransaction_default({
-    amount: BigInt(Number(submitAmount ?? "0").toLocaleString("fullwide", { useGrouping: false }) ?? "0"),
+    amount: BigInt(submitAmount ?? "0"),
     totalFee: BigInt(totalFee ?? "0"),
     originAddress: sourceAddress,
     targetAddress,
