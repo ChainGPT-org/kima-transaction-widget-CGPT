@@ -135,17 +135,18 @@ const WalletButton = ({ errorBelow = false }: { errorBelow?: boolean }) => {
       data-testid='connect-wallet-btn'
     >
       <div className='info-wrapper'>
-        <button
-          className={`hex-button ${isReady ? 'connected' : 'disconnected'} ${width < 640 && 'shortened'} ${theme.colorMode}`}
-          onClick={handleClick}
-        >
+        {isReady && (
+          <button
+            className={`hex-button ${isReady ? 'connected' : 'disconnected'} ${width < 640 && 'shortened'} ${theme.colorMode}`}
+            onClick={handleClick}
+          >
           {isReady
             ? width >= 640
               ? `${walletAddress || ''}`
               : getShortenedAddress(walletAddress || '')
             : ''}
-          {/* {!isReady && 'CONNECT WALLET'} */}
-        </button>
+          {!isReady && 'CONNECT WALLET'}
+        </button>)}
 
         {isReady && <CopyButton text={walletAddress as string} />}
       </div>
