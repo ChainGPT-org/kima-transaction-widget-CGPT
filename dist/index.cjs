@@ -4387,13 +4387,14 @@ var WalletButton = ({ errorBelow = false }) => {
       className: `wallet-button ${isReady ? "connected" : "disconnected"} ${theme.colorMode} ${errorBelow ? "error-below" : ""}`,
       "data-testid": "connect-wallet-btn"
     },
-    /* @__PURE__ */ import_react106.default.createElement("div", { className: "info-wrapper" }, /* @__PURE__ */ import_react106.default.createElement(
+    /* @__PURE__ */ import_react106.default.createElement("div", { className: "info-wrapper" }, isReady && /* @__PURE__ */ import_react106.default.createElement(
       "button",
       {
         className: `hex-button ${isReady ? "connected" : "disconnected"} ${width < 640 && "shortened"} ${theme.colorMode}`,
         onClick: handleClick
       },
-      isReady ? width >= 640 ? `${walletAddress || ""}` : getShortenedAddress(walletAddress || "") : ""
+      isReady ? width >= 640 ? `${walletAddress || ""}` : getShortenedAddress(walletAddress || "") : "",
+      !isReady && "CONNECT WALLET"
     ), isReady && /* @__PURE__ */ import_react106.default.createElement(CopyButton_default, { text: walletAddress })),
     isReady && balance !== void 0 ? /* @__PURE__ */ import_react106.default.createElement("p", { className: "balance-info" }, formatUSD(balance), " ", selectedCoin, " available") : null
   );
@@ -6273,7 +6274,7 @@ var TransferWidget = ({
     isWalletReady: isReady
   });
   const { submitTransaction, isSubmitting } = useSubmitTransaction_default({
-    amount: BigInt(submitAmount ?? "0"),
+    amount: BigInt(Number(submitAmount ?? "0").toLocaleString("fullwide", { useGrouping: false }) ?? "0"),
     totalFee: BigInt(totalFee ?? "0"),
     originAddress: sourceAddress,
     targetAddress,
