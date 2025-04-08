@@ -2479,7 +2479,6 @@ function useIsWalletReady() {
           sourceChain.name
         );
       } catch (e) {
-        console.log("useIsWalletReady:EVM:Network switch failed:", e);
       }
     }
   }, [appkitProvider, sourceChain]);
