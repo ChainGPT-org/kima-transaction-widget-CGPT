@@ -4370,7 +4370,6 @@ var WalletButton = ({ errorBelow = false }) => {
     console.info("Handling click: Case EVM", 4);
     try {
       console.info("Attempting to open AppKitModal");
-      await open();
       console.info("AppKitModal opened successfully");
     } catch (error) {
       console.error("Failed to open AppKitModal", error);
@@ -4394,8 +4393,7 @@ var WalletButton = ({ errorBelow = false }) => {
         className: `hex-button ${isReady ? "connected" : "disconnected"} ${width < 640 && "shortened"} ${theme.colorMode}`,
         onClick: handleClick
       },
-      isReady ? width >= 640 ? `${walletAddress || ""}` : getShortenedAddress(walletAddress || "") : "",
-      !isReady && "CONNECT WALLET"
+      isReady ? width >= 640 ? `${walletAddress || ""}` : getShortenedAddress(walletAddress || "") : ""
     ), isReady && /* @__PURE__ */ import_react106.default.createElement(CopyButton_default, { text: walletAddress })),
     isReady && balance !== void 0 ? /* @__PURE__ */ import_react106.default.createElement("p", { className: "balance-info" }, formatUSD(balance), " ", selectedCoin, " available") : null
   );
