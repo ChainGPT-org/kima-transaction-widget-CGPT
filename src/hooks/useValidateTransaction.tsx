@@ -27,7 +27,8 @@ const useValidateTransaction = ({
   mode,
   pools,
   formStep,
-  isWalletReady
+  isWalletReady,
+  sourceChain
 }: {
   allowance: number
   isApproved: boolean
@@ -47,6 +48,7 @@ const useValidateTransaction = ({
   pools: any[]
   formStep: number
   isWalletReady: boolean
+  sourceChain?: string
 }) => {
   const maxValue = useMemo(() => {
     if (!balance) return 0
@@ -63,6 +65,13 @@ const useValidateTransaction = ({
   const validate = (isSubmitting: boolean = false) => {
     console.log('allowance: ', allowance)
     console.log('isApproved: ', isApproved)
+
+    if(sourceChain === '') {
+      return {
+        error: ValidationError.Error,
+        message: 'Source network is not selected'
+      }
+    }
 
     // Validation logic
     if (!sourceAddress || !isWalletReady) {

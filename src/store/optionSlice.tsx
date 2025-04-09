@@ -104,7 +104,7 @@ const initialState: OptionState = {
   mode: ModeOptions.bridge,
   sourceChain: {
     ...arbitrumSepolia,
-    shortName: 'ARB',
+    shortName: '',
     supportedTokens: [],
     compatibility: ChainCompatibility.EVM
   },

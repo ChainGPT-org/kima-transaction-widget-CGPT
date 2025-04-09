@@ -1472,7 +1472,7 @@ var initialState = {
   mode: "bridge" /* bridge */,
   sourceChain: {
     ...arbitrumSepolia2,
-    shortName: "ARB",
+    shortName: "",
     supportedTokens: [],
     compatibility: "EVM" /* EVM */
   },
@@ -6002,7 +6002,8 @@ var useValidateTransaction = ({
   mode,
   pools,
   formStep,
-  isWalletReady
+  isWalletReady,
+  sourceChain
 }) => {
   const maxValue = useMemo20(() => {
     if (!balance) return 0;
@@ -6015,6 +6016,12 @@ var useValidateTransaction = ({
   const validate = (isSubmitting = false) => {
     console.log("allowance: ", allowance);
     console.log("isApproved: ", isApproved);
+    if (sourceChain === "") {
+      return {
+        error: "ValidationError" /* Error */,
+        message: "Source network is not selected"
+      };
+    }
     if (!sourceAddress || !isWalletReady) {
       return {
         error: "ValidationError" /* Error */,
@@ -6323,7 +6330,8 @@ var TransferWidget = ({
     pools,
     feeDeduct,
     formStep,
-    isWalletReady: isReady
+    isWalletReady: isReady,
+    sourceChain: sourceChain.shortName
   });
   const { submitTransaction, isSubmitting } = useSubmitTransaction_default({
     amount: BigInt(Number(submitAmount ?? "0").toLocaleString("fullwide", { useGrouping: false }) ?? "0"),
