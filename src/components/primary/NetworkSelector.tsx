@@ -74,7 +74,7 @@ const NetworkSelector: React.FC<NetworkSelectorProps> = ({ type }) => {
     // Fallback to the first available network if none is selected
     const fallbackNetwork = networks[0]
     if (isSourceSelector) {
-      dispatch(setSourceChain(fallbackNetwork))
+      // dispatch(setSourceChain(fallbackNetwork))
     } else {
       dispatch(setTargetChain(fallbackNetwork))
     }

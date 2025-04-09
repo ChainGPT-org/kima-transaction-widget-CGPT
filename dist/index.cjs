@@ -5390,7 +5390,6 @@ var NetworkSelector = ({ type }) => {
     if (!networks.length || selectedNetwork.shortName) return;
     const fallbackNetwork = networks[0];
     if (isSourceSelector) {
-      dispatch(setSourceChain(fallbackNetwork));
     } else {
       dispatch(setTargetChain(fallbackNetwork));
     }
