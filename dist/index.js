@@ -1459,7 +1459,7 @@ var DAppOptions = /* @__PURE__ */ ((DAppOptions2) => {
 })(DAppOptions || {});
 
 // src/store/optionSlice.tsx
-import { sepolia as sepolia2 } from "viem/chains";
+import { arbitrumSepolia as arbitrumSepolia2, sepolia as sepolia2 } from "viem/chains";
 var { createSlice } = toolkitRaw;
 var initialState = {
   networkOption: "testnet" /* testnet */,
@@ -1471,25 +1471,7 @@ var initialState = {
   kimaExplorerUrl: "https://explorer.sardis.kima.network",
   mode: "bridge" /* bridge */,
   sourceChain: {
-    id: 9990009990999,
-    name: "",
-    nativeCurrency: {
-      name: "",
-      symbol: "",
-      decimals: 18
-    },
-    rpcUrls: {
-      default: {
-        http: [""]
-      }
-    },
-    blockExplorers: {
-      default: {
-        name: "",
-        url: "",
-        apiUrl: ""
-      }
-    },
+    ...arbitrumSepolia2,
     shortName: "ARB",
     supportedTokens: [],
     compatibility: "EVM" /* EVM */
@@ -2578,7 +2560,7 @@ function useIsWalletReady() {
           );
           setIsReady(false);
           setStatusMessage("Switching to correct network...");
-          if (sourceChain.id !== 9990009990999) {
+          if (sourceChain.shortName !== "") {
             switchNetwork();
           }
         }
@@ -5488,21 +5470,19 @@ var NetworkSelector = ({ type }) => {
       onClick: () => setCollapsed((prev) => !prev),
       ref
     },
-    /* @__PURE__ */ React103.createElement("div", { className: "network-wrapper" }, /* @__PURE__ */ React103.createElement(ChainIcon, { symbol: selectedNetwork.shortName }), /* @__PURE__ */ React103.createElement("span", null, selectedNetwork.name)),
+    selectedNetwork.shortName === "" ? /* @__PURE__ */ React103.createElement(
+      "div",
+      {
+        className: "network-menu-item disabled",
+        onClick: (e) => e.stopPropagation()
+      },
+      /* @__PURE__ */ React103.createElement("p", null, isSourceSelector ? "Select Source Network" : "Select Target Network")
+    ) : /* @__PURE__ */ React103.createElement("div", { className: "network-wrapper" }, /* @__PURE__ */ React103.createElement(ChainIcon, { symbol: selectedNetwork.shortName }), /* @__PURE__ */ React103.createElement("span", null, selectedNetwork.name)),
     /* @__PURE__ */ React103.createElement(
       "div",
       {
         className: `network-menu custom-scrollbar ${theme?.colorMode ?? ""} ${collapsed ? "collapsed" : "toggled"}`
       },
-      /* @__PURE__ */ React103.createElement(
-        "div",
-        {
-          className: "network-menu-item disabled",
-          onClick: (e) => e.stopPropagation()
-        },
-        /* @__PURE__ */ React103.createElement(ChainIcon, { symbol: "" }),
-        /* @__PURE__ */ React103.createElement("p", null, isSourceSelector ? "Select Source Network" : "Select Target Network")
-      ),
       networks.filter((network) => network.shortName !== selectedNetwork.shortName).map((network) => /* @__PURE__ */ React103.createElement(
         "div",
         {
@@ -6696,6 +6676,7 @@ var KimaTransactionWidget = ({
   const { data: chainData, isLoading: isLoadingChainData } = useChainData(kimaBackendUrl);
   useEffect20(() => {
     if (!isLoadingChainData && chainData) {
+      dispatch(setSourceChain({ ...chainData[0], shortName: "" }));
       dispatch(setTargetChain(chainData[1]));
     }
   }, [chainData]);

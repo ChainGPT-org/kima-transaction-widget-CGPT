@@ -115,26 +115,28 @@ const NetworkSelector: React.FC<NetworkSelectorProps> = ({ type }) => {
       onClick={() => setCollapsed((prev) => !prev)}
       ref={ref}
     >
-      <div className='network-wrapper'>
-        <ChainIcon symbol={selectedNetwork.shortName} />
-        <span>{selectedNetwork.name}</span>
-      </div>
-      <div
-        className={`network-menu custom-scrollbar ${theme?.colorMode ?? ''} ${
-          collapsed ? 'collapsed' : 'toggled'
-        }`}
-      >
+      {selectedNetwork.shortName === '' ? (
         <div
           className='network-menu-item disabled'
           onClick={(e) => e.stopPropagation()} // Just stop propagation; no action
         >
-          <ChainIcon symbol='' />
           <p>
             {isSourceSelector
               ? 'Select Source Network'
               : 'Select Target Network'}
           </p>
         </div>
+      ) : (
+        <div className='network-wrapper'>
+          <ChainIcon symbol={selectedNetwork.shortName} />
+          <span>{selectedNetwork.name}</span>
+        </div>
+      )}
+      <div
+        className={`network-menu custom-scrollbar ${theme?.colorMode ?? ''} ${
+          collapsed ? 'collapsed' : 'toggled'
+        }`}
+      >
         {networks
           .filter((network) => network.shortName !== selectedNetwork.shortName)
           .map((network) => (

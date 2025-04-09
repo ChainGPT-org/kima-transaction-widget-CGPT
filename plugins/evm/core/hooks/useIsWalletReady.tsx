@@ -132,7 +132,7 @@ function useIsWalletReady(): {
           )
           setIsReady(false)
           setStatusMessage('Switching to correct network...')
-          if(sourceChain.id !== 9990009990999) {
+          if(sourceChain.shortName !== '') {
             switchNetwork()
           }
         }
