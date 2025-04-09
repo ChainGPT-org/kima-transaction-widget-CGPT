@@ -57,7 +57,7 @@ const KimaTransactionWidget = ({
 
   useEffect(() => {
     if (!isLoadingChainData && chainData) {
-      dispatch(setSourceChain(chainData[0]))
+      // dispatch(setSourceChain(chainData[0]))
       dispatch(setTargetChain(chainData[1]))
     }
   }, [chainData])
