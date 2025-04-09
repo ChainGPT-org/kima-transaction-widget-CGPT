@@ -67,6 +67,7 @@ const NetworkSelector: React.FC<NetworkSelectorProps> = ({ type }) => {
       }
     )
   }, [networks, sourceNetwork, targetNetwork, isSourceSelector])
+  console.log("🚀 ~ selectedNetwork ~ selectedNetwork:", selectedNetwork)
 
   useEffect(() => {
     if (!networks.length || selectedNetwork.shortName) return

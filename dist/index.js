@@ -1459,7 +1459,7 @@ var DAppOptions = /* @__PURE__ */ ((DAppOptions2) => {
 })(DAppOptions || {});
 
 // src/store/optionSlice.tsx
-import { arbitrumSepolia as arbitrumSepolia2, sepolia as sepolia2 } from "viem/chains";
+import { sepolia as sepolia2 } from "viem/chains";
 var { createSlice } = toolkitRaw;
 var initialState = {
   networkOption: "testnet" /* testnet */,
@@ -1471,7 +1471,25 @@ var initialState = {
   kimaExplorerUrl: "https://explorer.sardis.kima.network",
   mode: "bridge" /* bridge */,
   sourceChain: {
-    ...arbitrumSepolia2,
+    id: 0,
+    name: "",
+    nativeCurrency: {
+      name: "",
+      symbol: "",
+      decimals: 18
+    },
+    rpcUrls: {
+      default: {
+        http: [""]
+      }
+    },
+    blockExplorers: {
+      default: {
+        name: "",
+        url: "",
+        apiUrl: ""
+      }
+    },
     shortName: "",
     supportedTokens: [],
     compatibility: "EVM" /* EVM */
@@ -5430,6 +5448,7 @@ var NetworkSelector = ({ type }) => {
       name: isSourceSelector ? "Select Source Network" : "Select Target Network"
     };
   }, [networks, sourceNetwork, targetNetwork, isSourceSelector]);
+  console.log("\u{1F680} ~ selectedNetwork ~ selectedNetwork:", selectedNetwork);
   useEffect14(() => {
     if (!networks.length || selectedNetwork.shortName) return;
     const fallbackNetwork = networks[0];

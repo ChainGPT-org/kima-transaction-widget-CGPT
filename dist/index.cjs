@@ -1497,7 +1497,25 @@ var initialState = {
   kimaExplorerUrl: "https://explorer.sardis.kima.network",
   mode: "bridge" /* bridge */,
   sourceChain: {
-    ...import_chains.arbitrumSepolia,
+    id: 0,
+    name: "",
+    nativeCurrency: {
+      name: "",
+      symbol: "",
+      decimals: 18
+    },
+    rpcUrls: {
+      default: {
+        http: [""]
+      }
+    },
+    blockExplorers: {
+      default: {
+        name: "",
+        url: "",
+        apiUrl: ""
+      }
+    },
     shortName: "",
     supportedTokens: [],
     compatibility: "EVM" /* EVM */
@@ -5386,6 +5404,7 @@ var NetworkSelector = ({ type }) => {
       name: isSourceSelector ? "Select Source Network" : "Select Target Network"
     };
   }, [networks, sourceNetwork, targetNetwork, isSourceSelector]);
+  console.log("\u{1F680} ~ selectedNetwork ~ selectedNetwork:", selectedNetwork);
   (0, import_react123.useEffect)(() => {
     if (!networks.length || selectedNetwork.shortName) return;
     const fallbackNetwork = networks[0];

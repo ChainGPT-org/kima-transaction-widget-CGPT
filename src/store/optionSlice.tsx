@@ -103,7 +103,25 @@ const initialState: OptionState = {
   kimaExplorerUrl: 'https://explorer.sardis.kima.network',
   mode: ModeOptions.bridge,
   sourceChain: {
-    ...arbitrumSepolia,
+    id: 0,
+    name: '',
+    nativeCurrency: {
+      name: '',
+      symbol: '',
+      decimals: 18
+    },
+    rpcUrls: {
+      default: {
+        http: ['']
+      }
+    },
+    blockExplorers: {
+      default: {
+        name: '',
+        url: '',
+        apiUrl: ''
+      }
+    },
     shortName: '',
     supportedTokens: [],
     compatibility: ChainCompatibility.EVM
