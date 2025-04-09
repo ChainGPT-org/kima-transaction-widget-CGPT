@@ -6683,7 +6683,6 @@ var KimaTransactionWidget = ({
   const { data: chainData, isLoading: isLoadingChainData } = useChainData(kimaBackendUrl);
   useEffect20(() => {
     if (!isLoadingChainData && chainData) {
-      dispatch(setSourceChain({ ...chainData[0], shortName: "" }));
       dispatch(setTargetChain(chainData[1]));
     }
   }, [chainData]);

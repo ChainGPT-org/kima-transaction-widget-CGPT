@@ -6639,7 +6639,6 @@ var KimaTransactionWidget = ({
   const { data: chainData, isLoading: isLoadingChainData } = useChainData(kimaBackendUrl);
   (0, import_react137.useEffect)(() => {
     if (!isLoadingChainData && chainData) {
-      dispatch(setSourceChain({ ...chainData[0], shortName: "" }));
       dispatch(setTargetChain(chainData[1]));
     }
   }, [chainData]);
