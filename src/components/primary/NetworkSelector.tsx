@@ -124,6 +124,17 @@ const NetworkSelector: React.FC<NetworkSelectorProps> = ({ type }) => {
           collapsed ? 'collapsed' : 'toggled'
         }`}
       >
+        <div
+          className='network-menu-item disabled'
+          onClick={(e) => e.stopPropagation()} // Just stop propagation; no action
+        >
+          <ChainIcon symbol='' />
+          <p>
+            {isSourceSelector
+              ? 'Select Source Network'
+              : 'Select Target Network'}
+          </p>
+        </div>
         {networks
           .filter((network) => network.shortName !== selectedNetwork.shortName)
           .map((network) => (

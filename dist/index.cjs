@@ -1497,7 +1497,25 @@ var initialState = {
   kimaExplorerUrl: "https://explorer.sardis.kima.network",
   mode: "bridge" /* bridge */,
   sourceChain: {
-    ...import_chains.arbitrumSepolia,
+    id: 9990009990999,
+    name: "",
+    nativeCurrency: {
+      name: "",
+      symbol: "",
+      decimals: 18
+    },
+    rpcUrls: {
+      default: {
+        http: [""]
+      }
+    },
+    blockExplorers: {
+      default: {
+        name: "",
+        url: "",
+        apiUrl: ""
+      }
+    },
     shortName: "ARB",
     supportedTokens: [],
     compatibility: "EVM" /* EVM */
@@ -2543,7 +2561,9 @@ function useIsWalletReady() {
           );
           setIsReady(false);
           setStatusMessage("Switching to correct network...");
-          switchNetwork();
+          if (sourceChain.id !== 9990009990999) {
+            switchNetwork();
+          }
         }
       }
     }
@@ -5430,6 +5450,15 @@ var NetworkSelector = ({ type }) => {
       {
         className: `network-menu custom-scrollbar ${theme?.colorMode ?? ""} ${collapsed ? "collapsed" : "toggled"}`
       },
+      /* @__PURE__ */ import_react123.default.createElement(
+        "div",
+        {
+          className: "network-menu-item disabled",
+          onClick: (e) => e.stopPropagation()
+        },
+        /* @__PURE__ */ import_react123.default.createElement(ChainIcon, { symbol: "" }),
+        /* @__PURE__ */ import_react123.default.createElement("p", null, isSourceSelector ? "Select Source Network" : "Select Target Network")
+      ),
       networks.filter((network) => network.shortName !== selectedNetwork.shortName).map((network) => /* @__PURE__ */ import_react123.default.createElement(
         "div",
         {
