@@ -1022,14 +1022,14 @@
     width: 100%;
     margin-bottom: 10px;
     margin-right: 0;
-    text-align: flex-start;
+    text-align: start;
     font-weight: bolder;
   }
 }
 .kima-card .kima-card-content .single-form .form-item .items {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: start;
   gap: 10px;
   flex-grow: 1;
   align-items: center;
@@ -1203,7 +1203,7 @@
 }
 @media (max-width: 500px) {
   .kima-card .kima-card-content .single-form .form-item.transaction-search span {
-    text-align: flex-start;
+    text-align: start;
     margin-right: auto;
     margin-bottom: 10px;
     font-weight: bolder;
@@ -1428,7 +1428,7 @@
     background-color 0ms,
     border-color 0ms;
   display: flex;
-  justify-content: flex-start;
+  justify-content: start;
   flex-direction: row;
   align-items: center;
   background: #212126;
@@ -1592,7 +1592,7 @@
 }
 .kima-card .kima-card-content .single-form .network-dropdown .network-wrapper {
   display: flex;
-  justify-content: flex-start;
+  justify-content: start;
   align-items: center;
   border-radius: 15px;
   padding: 3px;
@@ -1654,7 +1654,7 @@
     background-color 0ms,
     border-color 0ms;
   display: flex;
-  justify-content: flex-start;
+  justify-content: start;
   flex-direction: row;
   align-items: center;
 }
@@ -2074,7 +2074,7 @@
 .kima-card .kima-card-content .confirm-details .detail-item .amount-container {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: start;
   width: 100%;
 }
 @media (max-width: 500px) {
@@ -2408,7 +2408,7 @@
 .kima-card .kima-card-content .transfer-notice {
   font-weight: bolder;
   display: flex;
-  justify-content: flex-start;
+  justify-content: start;
   align-items: center;
   width: 100%;
   font-size: 14px;

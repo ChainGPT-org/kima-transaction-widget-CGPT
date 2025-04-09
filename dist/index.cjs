@@ -1879,7 +1879,7 @@ function get(url) {
 function post(url, body, token) {
   const requestOptions = {
     method: "POST",
-    credentials: "include",
+    // credentials: 'include',
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`
