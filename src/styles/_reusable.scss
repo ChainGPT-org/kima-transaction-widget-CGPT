@@ -578,7 +578,7 @@
             width: 100%;
             margin-bottom: 10px;
             margin-right: 0;
-            text-align: start;
+            text-align: flex-start;
             font-weight: bolder;
           }
         }
@@ -586,7 +586,7 @@
         .items {
           display: flex;
           flex-direction: row;
-          justify-content: start;
+          justify-content: flex-start;
           gap: 10px;
           flex-grow: 1;
           align-items: center;
@@ -774,7 +774,7 @@
             margin-right: 85px;
 
             @include breakpoint(mobile) {
-              text-align: start;
+              text-align: flex-start;
               margin-right: auto;
               margin-bottom: 10px;
               font-weight: bolder;
@@ -994,7 +994,7 @@
             padding: 10px;
             @include transition;
             display: flex;
-            justify-content: start;
+            justify-content: flex-start;
             flex-direction: row;
             align-items: center;
             background: $backgroundTertiary;
@@ -1175,7 +1175,7 @@
 
         .network-wrapper {
           display: flex;
-          justify-content: start;
+          justify-content: flex-start;
           align-items: center;
           border-radius: 15px;
           padding: 3px;
@@ -1233,7 +1233,7 @@
             // width: 220px;
             @include transition;
             display: flex;
-            justify-content: start;
+            justify-content: flex-start;
             flex-direction: row;
             align-items: center;
 
@@ -1703,7 +1703,7 @@
         .amount-container {
           display: flex;
           flex-direction: column;
-          justify-content: start;
+          justify-content: flex-start;
           width: 100%;
 
           @include breakpoint(mobile) {
@@ -2084,7 +2084,7 @@
     .transfer-notice {
       font-weight: bolder;
       display: flex;
-      justify-content: start;
+      justify-content: flex-start;
       align-items: center;
       width: 100%;
       font-size: 14px;

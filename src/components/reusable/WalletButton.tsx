@@ -102,7 +102,7 @@ const WalletButton = ({ errorBelow = false }: { errorBelow?: boolean }) => {
     console.info('Handling click: Case EVM', 4)
     try {
       console.info('Attempting to open AppKitModal')
-      await open() // Ensure await usage
+      // await open() // Ensure await usage
       console.info('AppKitModal opened successfully')
     } catch (error) {
       console.error('Failed to open AppKitModal', error)
@@ -135,7 +135,7 @@ const WalletButton = ({ errorBelow = false }: { errorBelow?: boolean }) => {
       data-testid='connect-wallet-btn'
     >
       <div className='info-wrapper'>
-        <button
+        {isReady && <button
           className={`hex-button ${isReady ? 'connected' : 'disconnected'} ${width < 640 && 'shortened'} ${theme.colorMode}`}
           onClick={handleClick}
         >
@@ -145,7 +145,7 @@ const WalletButton = ({ errorBelow = false }: { errorBelow?: boolean }) => {
               : getShortenedAddress(walletAddress || '')
             : ''}
           {!isReady && 'CONNECT WALLET'}
-        </button>
+        </button>}
 
         {isReady && <CopyButton text={walletAddress as string} />}
       </div>

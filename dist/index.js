@@ -2496,7 +2496,7 @@ function useIsWalletReady() {
           sourceChain.name
         );
       } catch (e) {
-        console.error("useIsWalletReady:EVM:Network switch failed:", e);
+        console.log("useIsWalletReady:EVM:Network switch failed:", e);
       }
     }
   }, [appkitProvider, sourceChain]);
@@ -4414,7 +4414,6 @@ var WalletButton = ({ errorBelow = false }) => {
     console.info("Handling click: Case EVM", 4);
     try {
       console.info("Attempting to open AppKitModal");
-      await open();
       console.info("AppKitModal opened successfully");
     } catch (error) {
       console.error("Failed to open AppKitModal", error);
@@ -4432,7 +4431,7 @@ var WalletButton = ({ errorBelow = false }) => {
       className: `wallet-button ${isReady ? "connected" : "disconnected"} ${theme.colorMode} ${errorBelow ? "error-below" : ""}`,
       "data-testid": "connect-wallet-btn"
     },
-    /* @__PURE__ */ React89.createElement("div", { className: "info-wrapper" }, /* @__PURE__ */ React89.createElement(
+    /* @__PURE__ */ React89.createElement("div", { className: "info-wrapper" }, isReady && /* @__PURE__ */ React89.createElement(
       "button",
       {
         className: `hex-button ${isReady ? "connected" : "disconnected"} ${width < 640 && "shortened"} ${theme.colorMode}`,
@@ -6319,7 +6318,7 @@ var TransferWidget = ({
     isWalletReady: isReady
   });
   const { submitTransaction, isSubmitting } = useSubmitTransaction_default({
-    amount: BigInt(submitAmount ?? "0"),
+    amount: BigInt(Number(submitAmount ?? "0").toLocaleString("fullwide", { useGrouping: false }) ?? "0"),
     totalFee: BigInt(totalFee ?? "0"),
     originAddress: sourceAddress,
     targetAddress,
