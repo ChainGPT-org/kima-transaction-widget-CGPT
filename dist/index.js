@@ -4280,7 +4280,11 @@ var useWidth_default = useWidth;
 // src/components/reusable/WalletButton.tsx
 import { useWallet as useSolanaWallet2 } from "@solana/wallet-adapter-react";
 import { useWallet as useTronWallet3 } from "@tronweb3/tronwallet-adapter-react-hooks";
-import { useAppKit, useAppKitState } from "@reown/appkit/react";
+import {
+  useAppKit,
+  useAppKitAccount as useAppKitAccount5,
+  useAppKitState
+} from "@reown/appkit/react";
 
 // src/components/reusable/CopyButton.tsx
 import React88, { useEffect as useEffect7, useState as useState8 } from "react";
@@ -4400,6 +4404,9 @@ var WalletButton = ({ errorBelow = false }) => {
     walletAddress
     /*, connectBitcoinWallet*/
   } = useIsWalletReady4();
+  const appkitAccountInfo = useAppKitAccount5();
+  const { address: signerAddress } = appkitAccountInfo || {};
+  const userAddress = externalProvider?.signer?.address || signerAddress;
   const { balance } = useBalance2();
   const { open } = useAppKit();
   const { open: isModalOpen } = useAppKitState();
@@ -4458,7 +4465,7 @@ var WalletButton = ({ errorBelow = false }) => {
       className: `wallet-button ${isReady ? "connected" : "disconnected"} ${theme.colorMode} ${errorBelow ? "error-below" : ""}`,
       "data-testid": "connect-wallet-btn"
     },
-    /* @__PURE__ */ React89.createElement("div", { className: "info-wrapper" }, isReady && /* @__PURE__ */ React89.createElement(
+    isReady ? /* @__PURE__ */ React89.createElement("div", { className: "info-wrapper" }, isReady && /* @__PURE__ */ React89.createElement(
       "button",
       {
         className: `hex-button ${isReady ? "connected" : "disconnected"} ${width < 640 && "shortened"} ${theme.colorMode}`,
@@ -4466,7 +4473,14 @@ var WalletButton = ({ errorBelow = false }) => {
       },
       isReady ? width >= 640 ? `${walletAddress || ""}` : getShortenedAddress(walletAddress || "") : "",
       !isReady && "CONNECT WALLET"
-    ), isReady && /* @__PURE__ */ React89.createElement(CopyButton_default, { text: walletAddress })),
+    ), isReady && /* @__PURE__ */ React89.createElement(CopyButton_default, { text: walletAddress })) : userAddress && /* @__PURE__ */ React89.createElement("div", { className: "info-wrapper" }, /* @__PURE__ */ React89.createElement(
+      "button",
+      {
+        className: `hex-button ${userAddress ? "connected" : "disconnected"} ${width < 640 && "shortened"} ${theme.colorMode}`,
+        onClick: handleClick
+      },
+      userAddress ? width >= 640 ? `${userAddress || ""}` : getShortenedAddress(userAddress || "") : ""
+    ), /* @__PURE__ */ React89.createElement(CopyButton_default, { text: userAddress })),
     isReady && balance !== void 0 ? /* @__PURE__ */ React89.createElement("p", { className: "balance-info" }, formatUSD(balance), " ", selectedCoin, " available") : null
   );
 };

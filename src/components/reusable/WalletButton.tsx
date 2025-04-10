@@ -21,7 +21,11 @@ import useWidth from '../../hooks/useWidth'
 import { getShortenedAddress } from '../../utils/functions'
 import { useWallet as useSolanaWallet } from '@solana/wallet-adapter-react'
 import { useWallet as useTronWallet } from '@tronweb3/tronwallet-adapter-react-hooks'
-import { useAppKit, useAppKitState } from '@reown/appkit/react'
+import {
+  useAppKit,
+  useAppKitAccount,
+  useAppKitState
+} from '@reown/appkit/react'
 import CopyButton from './CopyButton'
 import { formatUSD } from '../../helpers/functions'
 import useHideWuiListItem from '../../hooks/useHideActivityTab'
@@ -42,6 +46,10 @@ const WalletButton = ({ errorBelow = false }: { errorBelow?: boolean }) => {
   const { connected: isTronConnected } = useTronWallet()
   const { isReady, statusMessage, walletAddress /*, connectBitcoinWallet*/ } =
     useIsWalletReady()
+  const appkitAccountInfo = useAppKitAccount()
+  const { address: signerAddress } = appkitAccountInfo || {}
+  const userAddress =
+    (externalProvider?.signer as any)?.address || signerAddress
   const { balance } = useBalance()
   const { open } = useAppKit()
   const { open: isModalOpen } = useAppKitState()
@@ -135,21 +143,42 @@ const WalletButton = ({ errorBelow = false }: { errorBelow?: boolean }) => {
       }`}
       data-testid='connect-wallet-btn'
     >
-      <div className='info-wrapper'>
-        {isReady && <button
-          className={`hex-button ${isReady ? 'connected' : 'disconnected'} ${width < 640 && 'shortened'} ${theme.colorMode}`}
-          onClick={handleClick}
-        >
-          {isReady
-            ? width >= 640
-              ? `${walletAddress || ''}`
-              : getShortenedAddress(walletAddress || '')
-            : ''}
-          {!isReady && 'CONNECT WALLET'}
-        </button>}
+      {isReady ? (
+        <div className='info-wrapper'>
+          {isReady && (
+            <button
+              className={`hex-button ${isReady ? 'connected' : 'disconnected'} ${width < 640 && 'shortened'} ${theme.colorMode}`}
+              onClick={handleClick}
+            >
+              {isReady
+                ? width >= 640
+                  ? `${walletAddress || ''}`
+                  : getShortenedAddress(walletAddress || '')
+                : ''}
+              {!isReady && 'CONNECT WALLET'}
+            </button>
+          )}
 
-        {isReady && <CopyButton text={walletAddress as string} />}
-      </div>
+          {isReady && <CopyButton text={walletAddress as string} />}
+        </div>
+      ) : (
+        userAddress && (
+          <div className='info-wrapper'>
+            <button
+              className={`hex-button ${userAddress ? 'connected' : 'disconnected'} ${width < 640 && 'shortened'} ${theme.colorMode}`}
+              onClick={handleClick}
+            >
+              {userAddress
+                ? width >= 640
+                  ? `${userAddress || ''}`
+                  : getShortenedAddress(userAddress || '')
+                : ''}
+            </button>
+
+            <CopyButton text={userAddress as string} />
+          </div>
+        )
+      )}
 
       {isReady && balance !== undefined ? (
         <p className='balance-info'>

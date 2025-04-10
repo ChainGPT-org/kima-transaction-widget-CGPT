@@ -4356,6 +4356,9 @@ var WalletButton = ({ errorBelow = false }) => {
     walletAddress
     /*, connectBitcoinWallet*/
   } = useIsWalletReady4();
+  const appkitAccountInfo = (0, import_react107.useAppKitAccount)();
+  const { address: signerAddress } = appkitAccountInfo || {};
+  const userAddress = externalProvider?.signer?.address || signerAddress;
   const { balance } = useBalance2();
   const { open } = (0, import_react107.useAppKit)();
   const { open: isModalOpen } = (0, import_react107.useAppKitState)();
@@ -4414,7 +4417,7 @@ var WalletButton = ({ errorBelow = false }) => {
       className: `wallet-button ${isReady ? "connected" : "disconnected"} ${theme.colorMode} ${errorBelow ? "error-below" : ""}`,
       "data-testid": "connect-wallet-btn"
     },
-    /* @__PURE__ */ import_react106.default.createElement("div", { className: "info-wrapper" }, isReady && /* @__PURE__ */ import_react106.default.createElement(
+    isReady ? /* @__PURE__ */ import_react106.default.createElement("div", { className: "info-wrapper" }, isReady && /* @__PURE__ */ import_react106.default.createElement(
       "button",
       {
         className: `hex-button ${isReady ? "connected" : "disconnected"} ${width < 640 && "shortened"} ${theme.colorMode}`,
@@ -4422,7 +4425,14 @@ var WalletButton = ({ errorBelow = false }) => {
       },
       isReady ? width >= 640 ? `${walletAddress || ""}` : getShortenedAddress(walletAddress || "") : "",
       !isReady && "CONNECT WALLET"
-    ), isReady && /* @__PURE__ */ import_react106.default.createElement(CopyButton_default, { text: walletAddress })),
+    ), isReady && /* @__PURE__ */ import_react106.default.createElement(CopyButton_default, { text: walletAddress })) : userAddress && /* @__PURE__ */ import_react106.default.createElement("div", { className: "info-wrapper" }, /* @__PURE__ */ import_react106.default.createElement(
+      "button",
+      {
+        className: `hex-button ${userAddress ? "connected" : "disconnected"} ${width < 640 && "shortened"} ${theme.colorMode}`,
+        onClick: handleClick
+      },
+      userAddress ? width >= 640 ? `${userAddress || ""}` : getShortenedAddress(userAddress || "") : ""
+    ), /* @__PURE__ */ import_react106.default.createElement(CopyButton_default, { text: userAddress })),
     isReady && balance !== void 0 ? /* @__PURE__ */ import_react106.default.createElement("p", { className: "balance-info" }, formatUSD(balance), " ", selectedCoin, " available") : null
   );
 };
