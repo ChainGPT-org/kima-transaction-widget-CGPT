@@ -74,7 +74,7 @@ const NetworkSelector: React.FC<NetworkSelectorProps> = ({ type }) => {
     // Fallback to the first available network if none is selected
     const fallbackNetwork = networks[0]
     if (isSourceSelector) {
-      dispatch(setSourceChain(fallbackNetwork))
+      // dispatch(setSourceChain(fallbackNetwork))
     } else {
       dispatch(setTargetChain(fallbackNetwork))
     }
@@ -115,10 +115,16 @@ const NetworkSelector: React.FC<NetworkSelectorProps> = ({ type }) => {
       onClick={() => setCollapsed((prev) => !prev)}
       ref={ref}
     >
-      <div className='network-wrapper'>
-        <ChainIcon symbol={selectedNetwork.shortName} />
-        <span>{selectedNetwork.name}</span>
-      </div>
+      {isSourceSelector && sourceNetwork.shortName === '' ? (
+        <div className='network-wrapper'>
+          <span>Select Network</span>
+        </div>
+      ) : (
+        <div className='network-wrapper'>
+          <ChainIcon symbol={selectedNetwork.shortName} />
+          <span>{selectedNetwork.name}</span>
+        </div>
+      )}
       <div
         className={`network-menu custom-scrollbar ${theme?.colorMode ?? ''} ${
           collapsed ? 'collapsed' : 'toggled'

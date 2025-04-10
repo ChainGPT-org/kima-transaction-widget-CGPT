@@ -164,7 +164,8 @@ export const TransferWidget = ({
     pools,
     feeDeduct,
     formStep,
-    isWalletReady: isReady
+    isWalletReady: isReady,
+    sourceChain: sourceChain.shortName
   })
 
   const { submitTransaction, isSubmitting } = useSubmitTransaction({
