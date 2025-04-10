@@ -1472,7 +1472,7 @@ var initialState = {
   mode: "bridge" /* bridge */,
   sourceChain: {
     ...arbitrumSepolia2,
-    shortName: "ARB",
+    shortName: "",
     supportedTokens: [],
     compatibility: "EVM" /* EVM */
   },
@@ -2573,7 +2573,9 @@ function useIsWalletReady() {
           );
           setIsReady(false);
           setStatusMessage("Switching to correct network...");
-          switchNetwork();
+          if (sourceChain.shortName !== "") {
+            switchNetwork();
+          }
         }
       }
     }
@@ -5446,7 +5448,6 @@ var NetworkSelector = ({ type }) => {
     if (!networks.length || selectedNetwork.shortName) return;
     const fallbackNetwork = networks[0];
     if (isSourceSelector) {
-      dispatch(setSourceChain(fallbackNetwork));
     } else {
       dispatch(setTargetChain(fallbackNetwork));
     }
@@ -5482,7 +5483,7 @@ var NetworkSelector = ({ type }) => {
       onClick: () => setCollapsed((prev) => !prev),
       ref
     },
-    /* @__PURE__ */ React103.createElement("div", { className: "network-wrapper" }, /* @__PURE__ */ React103.createElement(ChainIcon, { symbol: selectedNetwork.shortName }), /* @__PURE__ */ React103.createElement("span", null, selectedNetwork.name)),
+    isSourceSelector && sourceNetwork.shortName === "" ? /* @__PURE__ */ React103.createElement("div", { className: "network-wrapper" }, /* @__PURE__ */ React103.createElement("span", null, "Select Network")) : /* @__PURE__ */ React103.createElement("div", { className: "network-wrapper" }, /* @__PURE__ */ React103.createElement(ChainIcon, { symbol: selectedNetwork.shortName }), /* @__PURE__ */ React103.createElement("span", null, selectedNetwork.name)),
     /* @__PURE__ */ React103.createElement(
       "div",
       {
@@ -6008,7 +6009,8 @@ var useValidateTransaction = ({
   mode,
   pools,
   formStep,
-  isWalletReady
+  isWalletReady,
+  sourceChain
 }) => {
   const maxValue = useMemo20(() => {
     if (!balance) return 0;
@@ -6021,6 +6023,9 @@ var useValidateTransaction = ({
   const validate = (isSubmitting = false) => {
     logger_default.debug("allowance: ", allowance);
     logger_default.debug("isApproved: ", isApproved);
+    if (sourceChain === "") {
+      return { error: "ValidationError" /* Error */, message: "Source network is not selected" };
+    }
     if (!sourceAddress || !isWalletReady) {
       return {
         error: "ValidationError" /* Error */,
@@ -6333,7 +6338,8 @@ var TransferWidget = ({
     pools,
     feeDeduct,
     formStep,
-    isWalletReady: isReady
+    isWalletReady: isReady,
+    sourceChain: sourceChain.shortName
   });
   const { submitTransaction, isSubmitting } = useSubmitTransaction_default({
     amount: BigInt(Number(submitAmount ?? "0").toLocaleString("fullwide", { useGrouping: false }) ?? "0"),
@@ -6767,7 +6773,6 @@ var KimaTransactionWidget = ({
   }, []);
   useEffect22(() => {
     if (!isLoadingChainData && chainData) {
-      dispatch(setSourceChain(chainData[0]));
       dispatch(setTargetChain(chainData[1]));
     }
   }, [chainData]);
