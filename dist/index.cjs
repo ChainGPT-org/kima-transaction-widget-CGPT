@@ -4599,6 +4599,7 @@ var FeeDeductionRadioButtons = () => {
   const dispatch = (0, import_react_redux25.useDispatch)();
   const feeDeduct = (0, import_react_redux25.useSelector)(selectFeeDeduct);
   const amount = (0, import_react_redux25.useSelector)(selectAmount);
+  console.log("\u{1F680} ~ FeeDeductionRadioButtons ~ amount:", amount);
   const sourceNetwork = (0, import_react_redux25.useSelector)(selectSourceChain);
   const targetNetwork = (0, import_react_redux25.useSelector)(selectTargetChain);
   const { totalFeeUsd } = (0, import_react_redux25.useSelector)(selectServiceFee);
@@ -5568,8 +5569,9 @@ var SingleForm = ({
     {
       className: "max-button",
       clickHandler: () => {
-        setAmountValue(maxValue.toString());
-        dispatch(setAmount(maxValue.toString()));
+        let formattedMaxValue = maxValue % 1 === 0 ? maxValue.toString() : maxValue.toFixed(2);
+        setAmountValue(formattedMaxValue);
+        dispatch(setAmount(formattedMaxValue));
       }
     },
     "MAX"

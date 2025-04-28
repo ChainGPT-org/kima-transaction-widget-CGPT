@@ -4647,6 +4647,7 @@ var FeeDeductionRadioButtons = () => {
   const dispatch = useDispatch9();
   const feeDeduct = useSelector19(selectFeeDeduct);
   const amount = useSelector19(selectAmount);
+  console.log("\u{1F680} ~ FeeDeductionRadioButtons ~ amount:", amount);
   const sourceNetwork = useSelector19(selectSourceChain);
   const targetNetwork = useSelector19(selectTargetChain);
   const { totalFeeUsd } = useSelector19(selectServiceFee);
@@ -5616,8 +5617,9 @@ var SingleForm = ({
     {
       className: "max-button",
       clickHandler: () => {
-        setAmountValue(maxValue.toString());
-        dispatch(setAmount(maxValue.toString()));
+        let formattedMaxValue = maxValue % 1 === 0 ? maxValue.toString() : maxValue.toFixed(2);
+        setAmountValue(formattedMaxValue);
+        dispatch(setAmount(formattedMaxValue));
       }
     },
     "MAX"

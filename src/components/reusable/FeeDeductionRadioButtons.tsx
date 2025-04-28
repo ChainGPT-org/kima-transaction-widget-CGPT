@@ -17,6 +17,7 @@ const FeeDeductionRadioButtons = () => {
   const dispatch = useDispatch()
   const feeDeduct = useSelector(selectFeeDeduct)
   const amount = useSelector(selectAmount)
+  console.log("🚀 ~ FeeDeductionRadioButtons ~ amount:", amount)
   const sourceNetwork = useSelector(selectSourceChain)
   const targetNetwork = useSelector(selectTargetChain)
   const { totalFeeUsd } = useSelector(selectServiceFee)
