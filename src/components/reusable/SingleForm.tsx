@@ -182,8 +182,11 @@ const SingleForm = ({
             <SecondaryButton
               className='max-button'
               clickHandler={() => {
-                setAmountValue(maxValue.toString())
-                dispatch(setAmount(maxValue.toString()))
+                // setAmountValue(maxValue.toString())
+                // dispatch(setAmount(maxValue.toString()))
+                const formattedMaxValue = maxValue.toFixed(2);
+                setAmountValue(formattedMaxValue);
+                dispatch(setAmount(formattedMaxValue));
               }}
             >
               MAX
