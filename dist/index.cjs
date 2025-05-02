@@ -5559,7 +5559,7 @@ var SingleForm = ({
       value: amountValue || "",
       onChange: (e) => {
         const value = e.target.value;
-        const maskedValue = value.replace(/[^0-9.]/g, "").replace(/(\..*?)\..*/g, "$1").replace(new RegExp(`(\\.\\d{${decimals}})\\d+`), "$1");
+        const maskedValue = value.replace(/[^0-9.]/g, "").replace(/(\..*?)\..*/g, "$1").replace(/^0+(?=\d)/, "").replace(/(\.\d{6})\d+/, "$1");
         setAmountValue(maskedValue);
         dispatch(setAmount(maskedValue));
       }

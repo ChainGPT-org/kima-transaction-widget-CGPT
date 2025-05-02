@@ -172,7 +172,9 @@ const SingleForm = ({
               const maskedValue = value
                 .replace(/[^0-9.]/g, '') // Remove non-numeric and non-dot characters
                 .replace(/(\..*?)\..*/g, '$1') // Allow only one dot
-                .replace(new RegExp(`(\\.\\d{${decimals}})\\d+`), '$1') // Limit decimal places
+                // .replace(new RegExp(`(\\.\\d{${decimals}})\\d+`), '$1') // Limit decimal places
+                .replace(/^0+(?=\d)/, '') // Remove leading zeros unless they are before a dot
+                .replace(/(\.\d{6})\d+/, '$1')
 
               setAmountValue(maskedValue)
               dispatch(setAmount(maskedValue))
